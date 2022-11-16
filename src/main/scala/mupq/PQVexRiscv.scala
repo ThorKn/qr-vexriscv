@@ -19,8 +19,8 @@ abstract class PQVexRiscv(
   cpuPlugins: () => Seq[Plugin[VexRiscv]],
   ibusRange: SizeMapping,
   genUART: Boolean = true,
-  gpioWidth: Int = 0,
-  genTimer: Boolean = false
+  gpioWidth: Int = 1,
+  genTimer: Boolean = true
 )
 extends Component {
   val coreFrequency: HertzNumber

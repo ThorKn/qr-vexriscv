@@ -12,7 +12,7 @@ SCALA_SOURCES := $(shell find ../src -name "*.scala")
 
 all: $(addsuffix .bit,$(ICESTORM_TARGETS)) $(addsuffix .mcs,$(VIVADO_TARGETS))
 
-GENERATOR_FLAGS =
+GENERATOR_FLAGS = --init simple_demo.bin
 GENERATOR_NAME = $(basename $@)
 GENERATED_FILE = $(GENERATOR_NAME).v
 
