@@ -68,6 +68,7 @@ extends Component {
   val core = new ClockingArea(systemClockDomain) {
     val timerInterrupt    = False
     val externalInterrupt = False
+    val softwareInterrupt = False
 
     val config = VexRiscvConfig(plugins = cpuPlugins() ++ Seq(new DebugPlugin(debugClockDomain, 3)))
 
@@ -88,6 +89,7 @@ extends Component {
       case plugin: CsrPlugin =>
         plugin.externalInterrupt := externalInterrupt
         plugin.timerInterrupt := timerInterrupt
+        plugin.softwareInterrupt := softwareInterrupt
       case plugin: DebugPlugin =>
         plugin.debugClockDomain {
           resetCtrl.systemClockReset setWhen (RegNext(plugin.io.resetOut))
@@ -221,7 +223,12 @@ object PQVexRiscv {
           .copy(
             mtvecAccess = CsrAccess.READ_WRITE,
             mcycleAccess = CsrAccess.READ_ONLY,
-            minstretAccess = CsrAccess.READ_ONLY
+            minstretAccess = CsrAccess.READ_ONLY,
+            mhartid = 0,
+            mepcAccess = CsrAccess.READ_WRITE,
+            ecallGen = true,
+            ebreakGen = true,
+            wfiGenAsWait = true
           )
       ),
       new DecoderSimplePlugin(

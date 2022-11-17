@@ -12,7 +12,7 @@ SCALA_SOURCES := $(shell find ../src -name "*.scala")
 
 all: $(addsuffix .bit,$(ICESTORM_TARGETS)) $(addsuffix .mcs,$(VIVADO_TARGETS))
 
-GENERATOR_FLAGS = --init simple_demo.bin
+GENERATOR_FLAGS =
 GENERATOR_NAME = $(basename $@)
 GENERATED_FILE = $(GENERATOR_NAME).v
 
@@ -49,6 +49,8 @@ CLOCK_FREQ = 100
 CLOCK_PARAMS = \
 	$(if $(CORE_FREQ),--core ${CORE_FREQ}) \
 	$(if $(CLOCK_FREQ),--clk ${CLOCK_FREQ})
+
+PQVexRiscvUlx3s.v: GENERATOR_FLAGS = --ram 256,128 --init simple_demo.bin --clk 25 --core 25 --mul
 
 PQVexRiscvUP5K.v: GENERATOR_FLAGS=--mul
 PQVexRiscvUP5K.json: YOSYSFLAGS=-dsp

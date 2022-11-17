@@ -50,7 +50,6 @@ case class PipelinedMemoryBusRamUlx3s(size : BigInt, initialContent: File = null
     }
     ram.initBigInt(initContent)
   }
-
 }
 
 class PQVexRiscvUlx3s(
